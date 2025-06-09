@@ -6,12 +6,19 @@
     </div>
     <!-- 添加搜索框 -->
     <div class="search-bar">
-      <input
-          type="text"
-          placeholder="搜索资源名称..."
-          v-model="searchQuery"
-          class="search-input"
-      />
+      <div class="search-wrapper">
+        <input
+            type="text"
+            placeholder="搜索资源名称..."
+            v-model="searchQuery"
+            class="search-input"
+        />
+        <i
+            class="fas fa-times-circle clear-icon"
+            v-show="searchQuery"
+            @click="searchQuery=''"
+        ></i>
+      </div>
     </div>
 
 
@@ -109,18 +116,38 @@ function goDetail(id: number) {
   font-size: 1rem;
   transition: all 0.3s ease;
 }
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px; /* 保持与你原有搜索栏宽度一致 */
+  margin: 0 auto;
+}
+
+.clear-icon {
+  position: absolute;
+  right: 10px; /* 输入框右侧10px位置 */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #cbd5e1;
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: all 0.2s;
+  z-index: 10; /* 确保在输入框上方 */
+}
+
+.search-input {
+  width: 100%;
+  padding-right: 40px; /* 右侧留出清除按钮空间 */
+}
+
 .search-input:focus {
   border-color: #6366f1;
   box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
   outline: none;
 }
-.search-icon {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+.clear-icon:hover {
   color: #94a3b8;
-  font-size: 1.2rem;
+  transform: translateY(-50%) scale(1.1);
 }
 
 /* 其他样式保持不变 */
