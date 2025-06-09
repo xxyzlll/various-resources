@@ -4,13 +4,32 @@
       <h1 class="resource-title">资源收藏</h1>
       <p class="resource-subtitle">发现并探索优质开发资源</p>
     </div>
+    <!-- 添加搜索框 -->
+    <div class="search-bar">
+      <input
+          type="text"
+          placeholder="搜索资源名称..."
+          v-model="searchQuery"
+          class="search-input"
+      />
+    </div>
+
+
+    <div v-if="filteredResources.length === 0" class="empty-placeholder">
+      <div class="empty-illustration">
+        <!-- 可使用SVG插画 -->
+      </div>
+      <h3>未找到匹配资源</h3>
+      <p>尝试调整搜索关键词</p>
+    </div>
 
     <div class="resource-grid">
-      <div 
-        v-for="resource in resources"
-        :key="resource.id"
-        class="resource-card"
-        @click="goDetail(resource.id)"
+      <!-- 根据搜索条件过滤资源 -->
+      <div
+          v-for="resource in filteredResources"
+          :key="resource.id"
+          class="resource-card"
+          @click="goDetail(resource.id)"
       >
         <div class="card-image">
           <img v-if="resource.image" :src="resource.image" :alt="resource.name" />
@@ -18,7 +37,6 @@
             <i class="fas fa-image"></i>
           </div>
         </div>
-
         <div class="card-content">
           <h3>{{ resource.name }}</h3>
           <p class="description">{{ resource.description || '暂无描述' }}</p>
@@ -33,8 +51,21 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-const router = useRouter()
+import { ref, computed } from 'vue'
 import { resources } from '@/contanst/index'
+
+const router = useRouter()
+
+// 定义搜索框的绑定值
+const searchQuery = ref('')
+
+// 计算属性：根据搜索条件过滤资源
+const filteredResources = computed(() => {
+  if (!searchQuery.value) return resources
+  return resources.filter(resource =>
+      resource.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+})
 
 function goDetail(id: number) {
   router.push({ path: `/detail/${id}` })
@@ -50,7 +81,10 @@ function goDetail(id: number) {
   margin: 0;
   padding: 0;
 }
-
+.empty-placeholder {
+  border-radius: 24px;
+  padding: 60px 30px;
+}
 .resource-container {
   font-family: 'Poppins', sans-serif;
   margin: 0 auto;
@@ -59,35 +93,65 @@ function goDetail(id: number) {
   min-height: 100vh;
 }
 
+/* 搜索框样式 */
+.search-bar {
+  position: relative;
+  margin-bottom: 50px;
+  text-align: center;
+}
+.search-input {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 12px 50px 12px 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+  outline: none;
+}
+.search-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 1.2rem;
+}
+
+/* 其他样式保持不变 */
 .resource-header {
   text-align: center;
   margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
 }
-
 .resource-title {
   font-size: 2.5rem;
   font-weight: 700;
   color: #0f172a;
-  margin-bottom: 10px;
   background: linear-gradient(to right, #6366f1, #8b5cf6);
   -webkit-background-clip: text;
+  margin-bottom: 0;
   -webkit-text-fill-color: transparent;
 }
-
 .resource-subtitle {
   font-size: 1.1rem;
   color: #64748b;
   font-weight: 400;
   max-width: 600px;
-  margin: 0 auto;
 }
-
 .resource-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* 调整为更小的最小宽度 */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 30px;
 }
-
 .resource-card {
   background: #fff;
   border-radius: 16px;
@@ -99,12 +163,10 @@ function goDetail(id: number) {
   flex-direction: column;
   height: 100%;
 }
-
 .resource-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 12px 30px rgba(99, 102, 241, 0.2);
 }
-
 .card-image {
   height: 180px;
   background-color: #eef2ff;
@@ -113,32 +175,27 @@ function goDetail(id: number) {
   justify-content: center;
   padding: 20px;
 }
-
 .card-image img {
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
 }
-
 .image-placeholder {
   font-size: 3rem;
   color: #c7d2fe;
 }
-
 .card-content {
   padding: 25px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
-
 .card-content h3 {
   font-size: 1.4rem;
   font-weight: 600;
   color: #1e293b;
   margin-bottom: 12px;
 }
-
 .description {
   color: #64748b;
   font-size: 0.95rem;
@@ -146,14 +203,12 @@ function goDetail(id: number) {
   flex-grow: 1;
   margin-bottom: 20px;
 }
-
 .card-footer {
   border-top: 1px solid #f1f5f9;
   padding-top: 20px;
   display: flex;
   justify-content: flex-end;
 }
-
 .more-link {
   color: #6366f1;
   font-weight: 500;
@@ -161,18 +216,15 @@ function goDetail(id: number) {
   align-items: center;
   transition: all 0.2s;
 }
-
 .more-link i {
   margin-left: 6px;
   font-size: 0.8rem;
   transition: transform 0.2s;
 }
-
 .resource-card:hover .more-link {
   color: #8b5cf6;
 }
-
 .resource-card:hover .more-link i {
-  transform: translateX(3px); /* 添加悬停时的图标移动效果 */
+  transform: translateX(3px);
 }
 </style>
