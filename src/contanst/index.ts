@@ -20,5 +20,12 @@ export const resources: Resource[] = [
         image: "/images/img_1.png",
         description: "各行业合同模板合辑",
         link: 'https://pan.quark.cn/s/7b97e9550e17'
+    },
+    {
+        id: 2,
+        name: "Navicat Premium v16.2.9",
+        image: "/images/img_3.png",
+        description: "Navicat Premium v16.2.9",
+        link: 'https://pan.quark.cn/s/4a8575962f12'
     }
 ];
