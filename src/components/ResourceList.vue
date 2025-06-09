@@ -205,7 +205,6 @@ function goDetail(id: number) {
   width: 100%;
   height: 180px;
   object-fit: cover;
-  //object-position: left bottom;
 }
 .image-placeholder {
   font-size: 3rem;
