@@ -1,28 +1,24 @@
 export interface Resource {
-  id: number;
-  name: string;
-  image?: string;
-  description?: string;
-  link?: string;
+    id: number;
+    name: string;
+    image?: string;
+    description?: string;
+    link?: string;
 }
 
 export const resources: Resource[] = [
-  {
-    id: 1,
-    name: "Vue 官方文档",
-    image: "https://vuejs.org/images/logo.png",
-    description: "Vue.js 是一套用于构建用户界面的渐进式框架。",
-  },
-  {
-    id: 2,
-    name: "Vite 官网",
-    image: "https://vitejs.dev/logo.svg",
-    description: "下一代前端工具链，让前端开发更快更轻松。",
-  },
-  {
-    id: 3,
-    name: "TypeScript 中文网",
-    image: "https://www.typescriptlang.org/icons/icon-48x48.png",
-    description: "TypeScript 是 JavaScript 的一个超集。",
-  },
+    {
+        id: 1,
+        name: "【韩剧】无赦之仇(2025)【7集全】【1080P】【惊悚/犯罪】【内嵌简中字幕】",
+        image: "/images/img.png",
+        description: "改编自同名网漫，讲述前任黑帮成员原本已脱离组织，但为了追查弟弟离奇死亡的真相，他毅然决定回归道上，不报血仇誓不罢休。",
+        link: 'https://pan.quark.cn/s/762a93cfd04b'
+    },
+    {
+        id: 2,
+        name: "合同模板",
+        image: "/images/img_1.png",
+        description: "各行业合同模板合辑",
+        link: 'https://pan.quark.cn/s/7b97e9550e17'
+    }
 ];

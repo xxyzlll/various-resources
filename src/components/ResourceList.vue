@@ -2,7 +2,7 @@
   <div class="resource-container">
     <div class="resource-header">
       <h1 class="resource-title">资源收藏</h1>
-      <p class="resource-subtitle">发现并探索优质开发资源</p>
+      <p class="resource-subtitle">发现并探索好的资源</p>
     </div>
     <!-- 添加搜索框 -->
     <div class="search-bar">
@@ -200,12 +200,12 @@ function goDetail(id: number) {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
 }
 .card-image img {
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: contain;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  //object-position: left bottom;
 }
 .image-placeholder {
   font-size: 3rem;

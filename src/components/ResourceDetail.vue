@@ -5,7 +5,7 @@
         <!-- <button class="back-button" @click="goBack">
           <i class="fas fa-arrow-left"></i> 返回列表
         </button> -->
-        <h1 class="detail-title">{{ resource.name }}</h1>
+        <h2 class="detail-title">{{ resource.name }}</h2>
       </div>
 
       <div class="card-body">
@@ -21,7 +21,7 @@
           <div class="link-card" @click="openLink(resource.link)">
             <div class="link-content">
               <i class="fas fa-link"></i>
-              <span>{{ formatLink(resource.link) }}</span>
+              <span>{{ resource.link }}</span>
             </div>
             <button class="copy-button" @click.stop="copyLink(resource.link)">
               <i class="fas fa-copy"></i> 复制链接
@@ -50,7 +50,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { type Resource, resources } from "@/contanst";
+import {  resources } from "@/contanst";
 
 const route = useRoute()
 const router = useRouter()
@@ -63,14 +63,6 @@ const resource = computed(() => {
   return resources.find(r => r.id === id)
 })
 
-function formatLink(link: string) {
-  try {
-    const url = new URL(link)
-    return `${ url.hostname }${ url.pathname !== '/' ? url.pathname : '' }`
-  } catch {
-    return link
-  }
-}
 
 function goBack() {
   router.push('/')
@@ -129,10 +121,9 @@ onMounted(() => {
 }
 
 .detail-title {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin: 0 0 15px;
-  margin-bottom: 0;
+  margin: 0;
   letter-spacing: 0.5px;
   text-align: left;
 }
@@ -174,8 +165,8 @@ onMounted(() => {
 }
 
 .detail-image {
-  max-width: 150px;
-  max-height: 150px;
+  max-width: 300px;
+  max-height: 300px;
   border-radius: 16px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
   border: 3px solid white;
